@@ -2,7 +2,6 @@
 let userHealth = 40;
 let grantHealth = 10;
 let wins = 0;
-let grantWins = 0;
 let startGame = prompt("Do you want to play a game?", "yes or no");
 if (startGame === "yes") {
   let name = prompt("Please enter your name:", "Your name here");
