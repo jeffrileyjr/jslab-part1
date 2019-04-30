@@ -2,27 +2,44 @@
 let userHealth = 40;
 let grantHealth = 10;
 let wins = 0;
-let startGame = prompt("Do you want to play a game?", "yes or no");
-if (startGame === "yes") {
-  let name = prompt("Please enter your name:", "Your name here");
+let usersChoice = null;
+let usersName = null;
+let battleChoice = null;
+function getDamage() {
+  userHealth -= Math.floor((Math.random() * 5) + 1);
+  grantHealth -= Math.floor((Math.random() * 5) + 1);
+}
+function startCombat() {
   while (userHealth >= 1 && wins < 3) {
-    if (userHealth > 0 && grantHealth > 0) {
-      let userDamage = Math.floor((Math.random() * 2) + 1);
-      let grantDamage = Math.floor((Math.random() * 2) + 1);
-      userHealth = userHealth - userDamage;
-      grantHealth = grantHealth - grantDamage;
-      console.log(`${name} has ${userHealth} health left.`);
+    battleChoice = prompt("Would you like to attack or quit?", "attack or quit");
+    if (userHealth > 0 && grantHealth > 0 && battleChoice === "attack") {
+      getDamage();
+      console.log(`${usersName} has ${userHealth} health left.`);
       console.log(`Grant, the Mighty Chicken has ${grantHealth} health left.`);
       if (grantHealth <= 0) {
         wins++;
-        console.log(`That's ${wins} win(s) for ${name}.`);
+        console.log(`That's ${wins} win(s) for ${usersName}.`);
         grantHealth = 10;
       } if (userHealth <= 0) {
-        console.log(`Sorry, ${name}, you lost to a chicken!`);
+        console.log(`Sorry, ${usersName}, you lost to a chicken!`);
         break;
       } if (wins === 3) {
-        console.log(`Congrats, ${name}! You won!`);
+        console.log(`Congrats, ${usersName}! You won!`);
       }
+    }
+    else if (battleChoice === "quit") {
+      console.log("Thanks for playing!");
+      return;
     }
   }
 }
+function startGame() {
+  usersChoice = prompt("Do you want to play a game?", "yes or no");
+  if (usersChoice === "yes") {
+    usersName = prompt("Please enter your name:", "Your name here");
+    startCombat();
+    return usersName;
+  }
+}
+
+startGame();
